@@ -1,0 +1,6 @@
+{
+  "name": "ARGUS BIO-MAP",
+  "description": "Biological module observation tracker, timeline, confidence scoring, and pair comparison app.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

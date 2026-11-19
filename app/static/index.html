@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ARGUS BIO-MAP</title>
+    <meta name="description" content="Biological module observation tracker, timeline, confidence scoring, and pair comparison app.">
+    <meta property="og:title" content="ARGUS BIO-MAP">
+    <meta property="og:description" content="Biological module observation tracker, timeline, confidence scoring, and pair comparison app.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>ARGUS BIO-MAP</h1>
+    <button class="btn" onclick="showView('pairs')">Home</button>
+</header>
+
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+<div class="container" id="app">
+    <!-- Pairs View -->
+    <div id="view-pairs">
+        <div id="pairs-container">Loading...</div>
+        <div style="margin-top: 30px;">
+            <button class="btn" onclick="exportData()">Export JSON</button>
+            <button class="btn" onclick="document.getElementById('file-upload').click()">Import JSON</button>
+            <input type="file" id="file-upload" class="hidden" accept=".json" onchange="importData(event)">
+        </div>
+    </div>
+
+    <!-- Module View -->
+    <div id="view-module" class="hidden">
+        <button class="btn" style="margin-bottom: 16px;" onclick="showView('pairs')">← Back</button>
+        
+        <div class="card" id="module-header-card">
+            <!-- Rendered by JS -->
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; margin-bottom: 16px;" onclick="showView('add-obs')">+ Add Observation</button>
+        
+        <h3>Timeline</h3>
+        <div class="timeline" id="module-timeline">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+
+    <!-- Add Observation View -->
+    <div id="view-add-obs" class="hidden">
+        <button class="btn" style="margin-bottom: 16px;" onclick="showView('module')">← Cancel</button>
+        
+        <div class="card">
+            <h2 class="card-title">New Observation</h2>
+            <form id="obs-form" onsubmit="submitObservation(event)">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="obs-category" required>
+                        <option value="AUX ↔ CK">AUX ↔ CK</option>
+                        <option value="GA ↔ ABA">GA ↔ ABA</option>
+                        <option value="ROOT ↔ SHOOT">ROOT ↔ SHOOT</option>
+                        <option value="VIGOR">VIGOR</option>
+                        <option value="STRESS RESPONSE">STRESS RESPONSE</option>
+                        <option value="RECOVERY">RECOVERY</option>
+                        <option value="ARCHITECTURE">ARCHITECTURE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Qualitative Value</label>
+                    <input type="text" id="obs-val" placeholder="e.g. HIGH, FAST, NO_DATA" required>
+                </div>
+                <div class="form-group">
+                    <label>Source</label>
+                    <select id="obs-source" required>
+                        <option value="O">Observation (O)</option>
+                        <option value="G">Genetics (G)</option>
+                        <option value="I">Interpretation (I)</option>
+                        <option value="L">Lab (L)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Confidence</label>
+                    <select id="obs-confidence" required>
+                        <option value="HIGH">HIGH</option>
+                        <option value="MEDIUM" selected>MEDIUM</option>
+                        <option value="LOW">LOW</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Comment</label>
+                    <textarea id="obs-comment" placeholder="Short note..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
